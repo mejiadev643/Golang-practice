@@ -13,6 +13,7 @@ import (
 func GetUsersHandler(w http.ResponseWriter, r *http.Request) {
 	var users []models.User
 	db.DB.Find(&users)
+	db.DB.Preload("Tasks").Find(&users) //la asociasion va al final ya cuando se llena el objeto
 	json.NewEncoder(w).Encode(&users)
 }
 func GetUserHandler(w http.ResponseWriter, r *http.Request) {
